@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1440</width>
+    <height>878</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,30 +18,63 @@
     <normaloff>../img/Tools.png</normaloff>../img/Tools.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QGraphicsView" name="graphicsView">
     <property name="geometry">
      <rect>
-      <x>80</x>
-      <y>50</y>
-      <width>113</width>
-      <height>32</height>
+      <x>470</x>
+      <y>70</y>
+      <width>941</width>
+      <height>751</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="toolWidget" name="toolWidget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>221</width>
+      <height>811</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="historyWidget" name="historyWidget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>10</y>
+      <width>221</width>
+      <height>811</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_size">
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>40</y>
+      <width>941</width>
+      <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>加载图片</string>
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="label_filename">
     <property name="geometry">
      <rect>
-      <x>100</x>
-      <y>190</y>
-      <width>60</width>
+      <x>470</x>
+      <y>20</y>
+      <width>941</width>
       <height>16</height>
      </rect>
     </property>
     <property name="text">
-     <string>TextLabel</string>
+     <string/>
     </property>
    </widget>
   </widget>
@@ -50,13 +83,27 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>1440</width>
      <height>22</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>toolWidget</class>
+   <extends>QWidget</extends>
+   <header>widget/toolWidget</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>historyWidget</class>
+   <extends>QWidget</extends>
+   <header>widget/historyWidget</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

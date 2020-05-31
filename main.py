@@ -1,3 +1,8 @@
+# encoding: utf8
+# module: main
+"""
+
+"""
 # imports
 import sys
 
@@ -27,12 +32,19 @@ class main(QtWidgets.QMainWindow, Ui_MainWindow):
         pass
 
     def _signal_call(self):
-        self.pushButton.clicked.connect(self._slot_openfile)
+        self.historyWidget.Signal_scene.connect(self._slot_img)
 
-    def _slot_openfile(self):
-        filename, _ = QtWidgets.QFileDialog.getOpenFileName(self, '打开图片', '.')
-        img = QtGui.QImage(filename)
-        self.label.setPixmap(QtGui.QPixmap(filename))
+    def _slot_img(self, filename: str):
+        # 显示图片
+        scene = QtWidgets.QGraphicsScene()
+        pix = QtGui.QPixmap(filename)
+        scene.addPixmap(pix)
+        self.graphicsView.setScene(scene)
+        self.graphicsView.show()
+        # 设置信息
+        self.label_filename.setText(filename)
+        size = 'h * w (%s * %s)' % (pix.height(), pix.width())
+        self.label_size.setText(size)
 
 
 if __name__ == "__main__":
