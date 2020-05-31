@@ -37,19 +37,49 @@ class main(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def _signal_call(self):
         self.historyWidget.Signal_scene.connect(self._slot_img)
-        self.toolWidget.Signal_roatate.connect(self._slot_rotate)
         self.Signal_opt.connect(self.historyWidget.slot_opt)
         self.historyWidget.Signal_clear.connect(self._slot_clear)
+
+        self.toolWidget.Signal_flip.connect(self._slot_flip)
+        self.toolWidget.Signal_roatate.connect(self._slot_rotate)
+        self.toolWidget.Signal_zoom.connect(self._slot_zoom)
+        self.toolWidget.Signal_resize_rate.connect(self._slot_zoom)
 
     def _slot_clear(self):
         self.historyWidget.clear()
         self.toolWidget.doubleSpinBox_rotate.setValue(0)
+        self.toolWidget.spinBox_h.setValue(0)
+        self.toolWidget.spinBox_w.setValue(0)
+        self.toolWidget.doubleSpinBox_rate.setValue(1)
         pass
 
     def _slot_rotate(self, degree: float):
         if self.is_exist():
             self.pix = function.rotate(self.filename, degree)
             self.Signal_opt.emit(self.filename, opt.rotate, self.pix, str(degree))
+            self._show_img(self.pix)
+        pass
+
+    def _slot_flip(self, axis: str):
+        if self.is_exist():
+            self.pix = function.flip(self.filename, axis)
+            if axis == 'x':
+                self.Signal_opt.emit(self.filename, opt.flip, self.pix, '上下')
+            elif axis == 'y':
+                self.Signal_opt.emit(self.filename, opt.flip, self.pix, '左右')
+            self._show_img(self.pix)
+        pass
+
+    def _slot_zoom(self, *args):
+        if self.is_exist():
+            if len(args) == 2:
+                self.pix = function.zoom(self.filename, args[0], args[1])
+                msg = '%d * %d' % (args[0], args[1])
+                self.Signal_opt.emit(self.filename, opt.zoom, self.pix, msg)
+            elif len(args) == 1:
+                self.pix = function.zoom(self.filename, args[0])
+                msg = '%f *' % (args[0])
+                self.Signal_opt.emit(self.filename, opt.zoom, self.pix, msg)
             self._show_img(self.pix)
         pass
 
@@ -72,6 +102,9 @@ class main(QtWidgets.QMainWindow, Ui_MainWindow):
         else:
             self.label_filename.setText('添加图片吧')
             self.label_size.setText('')
+        # 设置其余信息
+        self.toolWidget.spinBox_h.setValue(pix.height())
+        self.toolWidget.spinBox_w.setValue(pix.width())
 
     def is_exist(self):
         return self.filename != 'init'
@@ -82,6 +115,8 @@ class opt(Enum):
     load = '加载图片'
     save = '保存图片'
     rotate = '旋转'
+    flip = '翻转'
+    zoom = '缩放'
 
 
 if __name__ == "__main__":

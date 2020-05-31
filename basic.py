@@ -28,6 +28,7 @@ class exp:
         fname = 'aim.' + self.format
         self.new_im.putdata(self.new_rgb)
         self.new_im.save(fname)
+        # self.new_im.show()
         return fname
 
     # 生成新图像
@@ -74,8 +75,6 @@ class exp:
                     xy11 = self.get_data(int(Y), xx)
                     rgb = self.rgb_double_interpolating(xy00, xy01, xy10, xy11)
                     self.set_data(j, i, rgb)
-        # 保存生成的图像
-        self.save()
 
     # 图像反转
     def flip(self, axis='x'):
@@ -83,14 +82,13 @@ class exp:
         for j in range(self.ysize):
             for i in range(self.xsize):
                 X = Y = 0
-                if axis is 'y':
+                if axis == 'y':
                     X = self.xsize - 1 - i
                     Y = j
-                elif axis is 'x':
+                elif axis == 'x':
                     X = i
                     Y = self.ysize - 1 - j
                 self.set_data(j, i, self.get_data(Y, X))
-        self.save()
 
     # 图像缩放
     def resize(self, new_size):
@@ -113,7 +111,6 @@ class exp:
                 X = int(cx * i)
                 Y = int(cy * j)
                 self.set_data(j, i, self.get_data(Y, X))
-        self.save()
 
     # 图像平移
     def move(self, x, y):
@@ -129,7 +126,6 @@ class exp:
                     pass
                 else:
                     self.set_data(j, i, self.get_data(Y, X))
-        self.save()
 
     # RGB通道双线性插值
     def rgb_double_interpolating(self, xy00, xy01, xy10, xy11):

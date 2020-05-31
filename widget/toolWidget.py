@@ -6,6 +6,9 @@ from ui.tool import Ui_Form
 
 class toolWidget(QtWidgets.QWidget, Ui_Form):
     Signal_roatate = pyqtSignal(float)
+    Signal_flip = pyqtSignal(str)
+    Signal_resize_rate = pyqtSignal(float)
+    Signal_zoom = pyqtSignal(int, int)
 
     def __init__(self, parent=None):
         super(toolWidget, self).__init__(parent)
@@ -17,9 +20,9 @@ class toolWidget(QtWidgets.QWidget, Ui_Form):
         pass
 
     def _signal_call(self):
-        self.btn_rotate.clicked.connect(self._slot_rotate)
-        pass
-
-    def _slot_rotate(self):
-        self.Signal_roatate.emit(self.doubleSpinBox_rotate.value())
+        self.btn_rotate.clicked.connect(lambda: self.Signal_roatate.emit(self.doubleSpinBox_rotate.value()))
+        self.btn_updown.clicked.connect(lambda: self.Signal_flip.emit('x'))
+        self.btn_leftright.clicked.connect(lambda: self.Signal_flip.emit('y'))
+        self.btn_hw.clicked.connect(lambda: self.Signal_zoom.emit(self.spinBox_h.value(), self.spinBox_w.value()))
+        self.btn_rate.clicked.connect(lambda: self.Signal_resize_rate.emit(self.doubleSpinBox_rate.value()))
         pass
