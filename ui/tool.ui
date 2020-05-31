@@ -32,6 +32,48 @@
                 <string>工具箱🧰</string>
             </property>
         </widget>
+        <widget class="QWidget" name="">
+            <property name="geometry">
+                <rect>
+                    <x>0</x>
+                    <y>40</y>
+                    <width>224</width>
+                    <height>36</height>
+                </rect>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout">
+                <item>
+                    <widget class="QLabel" name="label_2">
+                        <property name="text">
+                            <string>旋转</string>
+                        </property>
+                        <property name="alignment">
+                            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                        </property>
+                    </widget>
+                </item>
+                <item>
+                    <widget class="QDoubleSpinBox" name="doubleSpinBox_rotate">
+                        <property name="decimals">
+                            <number>1</number>
+                        </property>
+                        <property name="minimum">
+                            <double>-360.000000000000000</double>
+                        </property>
+                        <property name="maximum">
+                            <double>360.000000000000000</double>
+                        </property>
+                    </widget>
+                </item>
+                <item>
+                    <widget class="QPushButton" name="btn_rotate">
+                        <property name="text">
+                            <string>确认</string>
+                        </property>
+                    </widget>
+                </item>
+            </layout>
+        </widget>
     </widget>
     <resources/>
     <connections/>

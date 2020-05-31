@@ -8,7 +8,6 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
@@ -42,4 +41,4 @@ class Ui_Form(object):
         Form.setWindowTitle(_translate("Form", "Form"))
         self.label.setText(_translate("Form", "操作历史"))
         self.btn_load.setText(_translate("Form", "加载图片"))
-        self.btn_save.setText(_translate("Form", "保存图片"))
+        self.btn_save.setText(_translate("Form", "保存/清空"))

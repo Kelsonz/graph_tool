@@ -10,6 +10,7 @@ from main import opt
 
 class historyWidget(QtWidgets.QWidget, Ui_Form):
     Signal_scene = pyqtSignal(str, QtGui.QPixmap)
+    Signal_clear = pyqtSignal()
     pix_set = list()
 
     def __init__(self, parent=None):
@@ -31,6 +32,7 @@ class historyWidget(QtWidgets.QWidget, Ui_Form):
         opt = self.pix_set[index][1]
         pix = self.pix_set[index][2]
         self.Signal_scene.emit(filename, pix)
+        return item.text()
         pass
 
     def _open_img(self):
@@ -40,24 +42,38 @@ class historyWidget(QtWidgets.QWidget, Ui_Form):
             pass
         else:
             pix = QtGui.QPixmap(filename)
-            self.slot_opt(filename, opt.load, pix)
-            self._draw_table()
+            self.slot_opt(filename, opt.load, pix, filename.split('/')[-1])
             # 发射信号
             self.Signal_scene.emit(filename, pix)
         pass
 
     def _save_img(self):
         if self.is_exist():
-            pix = self.pix_set[-1][2]
-            fname = self.pix_set[-1][0]
-            # 打开文件
-            fname, _ = QtWidgets.QFileDialog.getSaveFileName(self, '保存图片', fname)
-            # 保存文件
-            format = fname.split('.')[-1]
-            if format.lower() == 'svg':
-                format = 'png'
-            pix.save(fname, format)
-            self.clear()
+            row = self.tableWidget.currentRow()
+            if row == -1:
+                row = 0
+            index = len(self.pix_set) - 1 - row
+            filename = self.pix_set[index][0].split('/')[-1]
+            format = filename.split('.')[-1]
+            opt = self.pix_set[index][1]
+            pix = self.pix_set[index][2]
+            msg = '是否保存\n' + opt + ' ' + filename
+            reply = QtWidgets.QMessageBox.information(self, '保存确认', msg,
+                                                      QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No | QtWidgets.QMessageBox.Cancel,
+                                                      QtWidgets.QMessageBox.Yes)
+            if reply == QtWidgets.QMessageBox.Cancel:
+                return
+            elif reply == QtWidgets.QMessageBox.Yes:
+                # 打开文件
+                fname, _ = QtWidgets.QFileDialog.getSaveFileName(self, '保存图片', filename)
+                # 保存文件
+                temp = fname.split('.')
+                if format.lower() == 'svg':
+                    format = 'png'
+                if len(temp) == 1:
+                    fname = '%s.%s' % (fname, format)
+                pix.save(fname, format)
+            self.Signal_clear.emit()
             pass
 
     def clear(self):
@@ -69,10 +85,13 @@ class historyWidget(QtWidgets.QWidget, Ui_Form):
         self.tableWidget.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
         self.tableWidget.horizontalHeader().setVisible(False)
         self.tableWidget.verticalHeader().setVisible(False)
+        # 清空pix_list
+        self.pix_set.clear()
         pass
 
-    def slot_opt(self, fname: str, opt: enum, pix: QtGui.QPixmap):
-        self.pix_set.append([fname, opt.value, pix])
+    def slot_opt(self, fname: str, opt: enum, pix: QtGui.QPixmap, msg: str):
+        self.pix_set.append([fname, opt.value, pix, msg])
+        self._draw_table()
 
     def _draw_table(self):
         # 设置行列数
@@ -98,9 +117,7 @@ class historyWidget(QtWidgets.QWidget, Ui_Form):
     def _item(self, index: int):
         filename = self.pix_set[index][0].split('/')[-1]
         op = self.pix_set[index][1]
-        msg = ''
-        if op == opt.load.value:
-            msg = filename
+        msg = self.pix_set[index][3]
         op = QtWidgets.QTableWidgetItem(op)
         msg = QtWidgets.QTableWidgetItem(msg)
         return op, msg
