@@ -51,6 +51,5 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "图像小工具"))
 
-
 from widget.historyWidget import historyWidget
 from widget.toolWidget import toolWidget
