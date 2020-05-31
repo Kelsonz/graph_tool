@@ -3,6 +3,7 @@
 # imports
 from PyQt5.QtGui import QPixmap
 from basic import exp
+from hence import ImageFilter
 import os
 
 
@@ -38,6 +39,24 @@ class function:
         elif len(args) == 2:
             img.resize(args[1])
         fname = img.save()
+        pix = QPixmap(fname)
+        os.remove(fname)
+        return pix
+        pass
+
+    @staticmethod
+    def medial_filter(filename: str, size: int):
+        img = ImageFilter(filename)
+        fname = img.medial_filter(size=size)
+        pix = QPixmap(fname)
+        os.remove(fname)
+        return pix
+        pass
+
+    @staticmethod
+    def avg_filter(filename: str, size: int):
+        img = ImageFilter(filename)
+        fname = img.avg_filter(size=size)
         pix = QPixmap(fname)
         os.remove(fname)
         return pix

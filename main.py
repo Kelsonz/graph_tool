@@ -44,6 +44,8 @@ class main(QtWidgets.QMainWindow, Ui_MainWindow):
         self.toolWidget.Signal_roatate.connect(self._slot_rotate)
         self.toolWidget.Signal_zoom.connect(self._slot_zoom)
         self.toolWidget.Signal_resize_rate.connect(self._slot_zoom)
+        self.toolWidget.Signal_mid.connect(self._slot_mid)
+        self.toolWidget.Signal_avg.connect(self._slot_avg)
 
     def _slot_clear(self):
         self.historyWidget.clear()
@@ -52,6 +54,20 @@ class main(QtWidgets.QMainWindow, Ui_MainWindow):
         self.toolWidget.spinBox_w.setValue(0)
         self.toolWidget.doubleSpinBox_rate.setValue(1)
         pass
+
+    def _slot_avg(self, size: int):
+        if self.is_exist():
+            self.pix = function.medial_filter(self.filename, size)
+            size = str(size) + '*' + str(size)
+            self.Signal_opt.emit(self.filename, opt.avg, self.pix, size)
+            self._show_img(self.pix)
+
+    def _slot_mid(self, size: int):
+        if self.is_exist():
+            self.pix = function.medial_filter(self.filename, size)
+            size = str(size) + '*' + str(size)
+            self.Signal_opt.emit(self.filename, opt.mid, self.pix, size)
+            self._show_img(self.pix)
 
     def _slot_rotate(self, degree: float):
         if self.is_exist():
@@ -117,6 +133,8 @@ class opt(Enum):
     rotate = '旋转'
     flip = '翻转'
     zoom = '缩放'
+    mid = '中值滤波'
+    avg = '均值滤波'
 
 
 if __name__ == "__main__":

@@ -9,6 +9,8 @@ class toolWidget(QtWidgets.QWidget, Ui_Form):
     Signal_flip = pyqtSignal(str)
     Signal_resize_rate = pyqtSignal(float)
     Signal_zoom = pyqtSignal(int, int)
+    Signal_mid = pyqtSignal(int)
+    Signal_avg = pyqtSignal(int)
 
     def __init__(self, parent=None):
         super(toolWidget, self).__init__(parent)
@@ -25,4 +27,6 @@ class toolWidget(QtWidgets.QWidget, Ui_Form):
         self.btn_leftright.clicked.connect(lambda: self.Signal_flip.emit('y'))
         self.btn_hw.clicked.connect(lambda: self.Signal_zoom.emit(self.spinBox_h.value(), self.spinBox_w.value()))
         self.btn_rate.clicked.connect(lambda: self.Signal_resize_rate.emit(self.doubleSpinBox_rate.value()))
+        self.btn_mid.clicked.connect(lambda: self.Signal_mid.emit(int(self.comboBox_mid.currentText())))
+        self.btn_avg.clicked.connect(lambda: self.Signal_avg.emit(int(self.comboBox_avg.currentText())))
         pass
