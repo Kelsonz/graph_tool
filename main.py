@@ -5,13 +5,14 @@
 """
 # imports
 import sys
+from enum import Enum, unique
 
 # PyQt5
 from PyQt5 import QtWidgets, QtGui
-from PyQt5.QtCore import pyqtSlot, pyqtSignal
+from PyQt5.QtCore import pyqtSignal
+
+from function.function import function
 from ui.main import Ui_MainWindow
-from enum import Enum, unique
-from function import function
 
 
 class main(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -82,7 +83,7 @@ class main(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def _slot_canny(self, low: int, high: int):
         if self.is_exist():
-            self.pix = function.canny(low=low, high=high)
+            self.pix = function.canny(self.filename, low=low, high=high)
             msg = 'low:%d high:%d' % (low, high)
             self.Signal_opt.emit(self.filename, opt.canny, self.pix, msg)
             self._show_img(self.pix)
@@ -200,7 +201,7 @@ class main(QtWidgets.QMainWindow, Ui_MainWindow):
         if self.is_exist():
             self.pix = function.move(self.filename, X, Y)
             size = '(%d, %d)' % (X, Y)
-            self.Signal_opt.emit(self.filename, opt.avg, self.pix, size)
+            self.Signal_opt.emit(self.filename, opt.move, self.pix, size)
             self._show_img(self.pix)
 
     def _show_img(self, pix):
@@ -237,6 +238,7 @@ class opt(Enum):
     rotate = '旋转'
     flip = '翻转'
     zoom = '缩放'
+    move = '平移'
     mid = '中值滤波'
     avg = '均值滤波'
     his = '直方图均衡化'

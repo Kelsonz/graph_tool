@@ -1,5 +1,6 @@
-from PIL import Image
 import math
+
+from PIL import Image
 
 
 class exp:
@@ -149,6 +150,6 @@ class exp:
 
 
 if __name__ == '__main__':
-    t = exp('img/tool.png')
+    t = exp('../img/tool.png')
 
     t.rotate(30)

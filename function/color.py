@@ -3,13 +3,14 @@
 
 __author__ = 'Kelsonz Fu'
 
-from PIL import Image
-import numpy as np
-import matplotlib.pyplot as plt
-from math import pi as pi
 from math import acos
-from math import sqrt
 from math import cos
+from math import pi as pi
+from math import sqrt
+
+import matplotlib.pyplot as plt
+import numpy as np
+from PIL import Image
 
 
 class color:

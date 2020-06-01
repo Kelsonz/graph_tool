@@ -1,13 +1,15 @@
 # encoding: utf8
 
+import os
+
+from PIL import Image
 # imports
 from PyQt5.QtGui import QPixmap
-from basic import exp
-from hence import ImageFilter
-from grey import grey
-from color import color
-import os
-from PIL import Image
+
+from function.basic import exp
+from function.color import color
+from function.grey import grey
+from function.hence import ImageFilter
 
 
 class function:

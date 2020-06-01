@@ -1,6 +1,7 @@
 # imports
-from PyQt5 import QtWidgets, QtGui
-from PyQt5.QtCore import pyqtSlot, pyqtSignal
+from PyQt5 import QtWidgets
+from PyQt5.QtCore import pyqtSignal
+
 from ui.tool import Ui_Form
 
 
@@ -48,10 +49,10 @@ class toolWidget(QtWidgets.QWidget, Ui_Form):
         self.btn_gauss.clicked.connect(lambda: self.Signal_gauss.emit(self.doubleSpinBox_gauss_sigma.value(),
                                                                       int(self.comboBox_gauss_size.currentText())))
         # 增强
-        self.btn_his.clicked.connect(lambda: self.Signal_his.emit())
+        # self.btn.clicked.connect(lambda: self.Signal_his.emit())
         self.btn_robert.clicked.connect(lambda: self.Signal_robert.emit(self.comboBox_robert.currentText() == '叠加'))
         self.btn_prewitt.clicked.connect(lambda: self.Signal_prewitt.emit(self.comboBox_prewitt.currentText() == '叠加'))
-        self.btn_sobel.clicked.connect(lambda: self.Signal_soble.emit(self.comboBox_soble.currentText() == '叠加'))
+        self.btn_sobel.clicked.connect(lambda: self.Signal_sobel.emit(self.comboBox_sobel.currentText() == '叠加'))
         self.btn_canny.clicked.connect(
             lambda: self.Signal_canny.emit(self.spinBox_low.value(), self.spinBox_high.value()))
         self.btn_laplace.clicked.connect(self._slot_laplace)

@@ -4,12 +4,13 @@
 # 载入图像，对图像边缘进行扩充处理，根据输入卷积核进行卷积操作
 __author__ = 'Kelsonz Fu'
 
-from PIL import Image
-from math import sqrt as sqrt
-from math import pow as pow
+from math import atan as atan
 from math import exp as exp
 from math import pi as pi
-from math import atan as atan
+from math import pow as pow
+from math import sqrt as sqrt
+
+from PIL import Image
 
 
 class ImageFilter:
