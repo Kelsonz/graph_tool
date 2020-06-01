@@ -287,7 +287,7 @@ class ImageFilter:
         self.set_expand_mode(expand)
         filter_name = 'canny'
         # 高斯平滑
-        gauss_matrix = self.gauss(sigma=sigma, size=size, expand='zero')
+        gauss_matrix, _ = self.gauss(sigma=sigma, size=size, expand='zero')
         # 计算梯度强度和方向，使用sobel算子
         kernel_1 = [[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]]
         kernel_2 = [[1, 2, 1], [0, 0, 0], [-1, -2, -1]]
@@ -337,9 +337,8 @@ class ImageFilter:
         matrix = self.expand(self.l_matrix)
         # return concolution
         new_l_matrix, new_l_str = self.matrix_convolution(matrix, kernel)
-
-        self.put_image(self.round_str(new_l_str), 'gauss')
-        return new_l_matrix
+        fname = self.put_image(self.round_str(new_l_str), 'gauss')
+        return new_l_matrix, fname
 
     # 进行robert算子的卷积
     def robert(self, hence=False):
@@ -561,33 +560,3 @@ class ImageFilter:
 # 取平方和后开根号
 def square_sum(x, y):
     return sqrt(pow(x, 2) + pow(y, 2))
-
-
-# 统计矩阵内低于low像素的个数的百分比
-def count_lower(matrix, low=0):
-    ysize = len(matrix)
-    xsize = len(matrix[0])
-    count = 0
-    for j in range(ysize):
-        for i in range(xsize):
-            if matrix[j][i] <= low:
-                count += 1
-    return count / (xsize * ysize)
-
-
-# 按行打印矩阵
-def print_matrix(matrix):
-    for i in range(len(matrix)):
-        print(matrix[i])
-    print('\n')
-
-# 测试
-# x = ImageFilter('medial_zero_noise_5*5.jpg')
-# x.canny()
-# y = ImageFilter('circuit.png')
-# y = ImageFilter('noise.jpg')
-# y = ImageFilter('bacteria.png')
-# y = ImageFilter('tree.jpg')
-# y.canny(low=50, high=100)
-# y.sobel()
-# y.gauss()

@@ -28,87 +28,32 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QLabel" name="label_2">
-       <property name="text">
-        <string>旋转</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QDoubleSpinBox" name="doubleSpinBox_rotate">
-       <property name="decimals">
-        <number>1</number>
-       </property>
-       <property name="minimum">
-        <double>-360.000000000000000</double>
-       </property>
-       <property name="maximum">
-        <double>360.000000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="btn_rotate">
-       <property name="text">
-        <string>确认</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <item>
-      <widget class="QLabel" name="label_3">
-       <property name="text">
-        <string>翻转</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="2" column="2">
       <widget class="QPushButton" name="btn_updown">
        <property name="text">
         <string>上下</string>
        </property>
       </widget>
      </item>
-     <item>
-      <widget class="QPushButton" name="btn_leftright">
+     <item row="1" column="3">
+      <widget class="QPushButton" name="btn_rotate">
        <property name="text">
-        <string>左右</string>
+        <string>确认</string>
        </property>
       </widget>
      </item>
-    </layout>
-   </item>
-   <item>
-    <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="0" colspan="3">
-      <widget class="QLabel" name="label_4">
-       <property name="text">
-        <string>缩放</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
+     <item row="5" column="1">
       <widget class="QLabel" name="label_6">
        <property name="text">
         <string>宽度</string>
        </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
       </widget>
      </item>
-     <item row="2" column="1">
+     <item row="5" column="2">
       <widget class="QSpinBox" name="spinBox_w">
        <property name="minimum">
         <number>1</number>
@@ -118,7 +63,7 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
+     <item row="4" column="2">
       <widget class="QSpinBox" name="spinBox_h">
        <property name="minimum">
         <number>1</number>
@@ -131,21 +76,27 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="0">
+     <item row="4" column="1">
       <widget class="QLabel" name="label_5">
        <property name="text">
         <string>高度</string>
        </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
       </widget>
      </item>
-     <item row="3" column="0">
+     <item row="6" column="1">
       <widget class="QLabel" name="label_7">
        <property name="text">
         <string>倍数</string>
        </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
       </widget>
      </item>
-     <item row="3" column="1">
+     <item row="6" column="2">
       <widget class="QDoubleSpinBox" name="doubleSpinBox_rate">
        <property name="singleStep">
         <double>0.100000000000000</double>
@@ -155,15 +106,142 @@
        </property>
       </widget>
      </item>
-     <item row="3" column="2">
+     <item row="6" column="3">
       <widget class="QPushButton" name="btn_rate">
        <property name="text">
         <string>确认</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="2" rowspan="2">
+     <item row="4" column="3" rowspan="2">
       <widget class="QPushButton" name="btn_hw">
+       <property name="text">
+        <string>确认</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="3">
+      <widget class="QPushButton" name="btn_leftright">
+       <property name="text">
+        <string>左右</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0" rowspan="3">
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>缩放</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0" colspan="4">
+      <widget class="QLabel" name="label_24">
+       <property name="text">
+        <string>基础功能</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>旋转</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>翻转</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1" colspan="2">
+      <widget class="QDoubleSpinBox" name="doubleSpinBox_rotate">
+       <property name="decimals">
+        <number>1</number>
+       </property>
+       <property name="minimum">
+        <double>-360.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>360.000000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="0" rowspan="4">
+      <widget class="QLabel" name="label_23">
+       <property name="text">
+        <string>平移</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="2">
+      <widget class="QSpinBox" name="spinBox_up">
+       <property name="maximum">
+        <number>1000</number>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="1">
+      <widget class="QLabel" name="label_25">
+       <property name="text">
+        <string>上</string>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="2">
+      <widget class="QSpinBox" name="spinBox_down">
+       <property name="maximum">
+        <number>1000</number>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="1">
+      <widget class="QLabel" name="label_26">
+       <property name="text">
+        <string>下</string>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="2">
+      <widget class="QSpinBox" name="spinBox_left">
+       <property name="maximum">
+        <number>1000</number>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="1">
+      <widget class="QLabel" name="label_27">
+       <property name="text">
+        <string>左</string>
+       </property>
+      </widget>
+     </item>
+     <item row="10" column="2">
+      <widget class="QSpinBox" name="spinBox_right">
+       <property name="maximum">
+        <number>1000</number>
+       </property>
+      </widget>
+     </item>
+     <item row="10" column="1">
+      <widget class="QLabel" name="label_28">
+       <property name="text">
+        <string>右</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="3" rowspan="4">
+      <widget class="QPushButton" name="btn_move">
        <property name="text">
         <string>确认</string>
        </property>
@@ -172,14 +250,14 @@
     </layout>
    </item>
    <item>
+    <widget class="Line" name="line_2">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
     <layout class="QGridLayout" name="gridLayout_2">
-     <item row="6" column="0">
-      <widget class="QLabel" name="label_12">
-       <property name="text">
-        <string>Laplace</string>
-       </property>
-      </widget>
-     </item>
      <item row="4" column="1" colspan="2">
       <widget class="QComboBox" name="comboBox_prewitt">
        <item>
@@ -201,13 +279,6 @@
        </property>
        <property name="alignment">
         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="3">
-      <widget class="QPushButton" name="btn_laplace">
-       <property name="text">
-        <string>确认</string>
        </property>
       </widget>
      </item>
@@ -235,21 +306,7 @@
        </property>
       </widget>
      </item>
-     <item row="6" column="2">
-      <widget class="QComboBox" name="comboBox_l">
-       <item>
-        <property name="text">
-         <string>不叠加</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>叠加</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-     <item row="8" column="2">
+     <item row="9" column="2">
       <widget class="QComboBox" name="comboBox_gauss_size">
        <item>
         <property name="text">
@@ -303,22 +360,22 @@
        </property>
       </widget>
      </item>
-     <item row="7" column="1">
+     <item row="8" column="1">
       <widget class="QLabel" name="label_15">
        <property name="text">
         <string>sigma</string>
        </property>
       </widget>
      </item>
-     <item row="8" column="1">
+     <item row="9" column="1">
       <widget class="QLabel" name="label_18">
        <property name="text">
         <string>size</string>
        </property>
       </widget>
      </item>
-     <item row="9" column="2">
-      <widget class="QSpinBox" name="spinBox"/>
+     <item row="10" column="2">
+      <widget class="QSpinBox" name="spinBox_low"/>
      </item>
      <item row="1" column="0" colspan="2">
       <widget class="QLabel" name="label_16">
@@ -330,8 +387,12 @@
        </property>
       </widget>
      </item>
-     <item row="7" column="2">
-      <widget class="QDoubleSpinBox" name="doubleSpinBox_gauss_sigma"/>
+     <item row="8" column="2">
+      <widget class="QDoubleSpinBox" name="doubleSpinBox_gauss_sigma">
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
      </item>
      <item row="2" column="2">
       <widget class="QComboBox" name="comboBox_avg">
@@ -352,7 +413,7 @@
        </item>
       </widget>
      </item>
-     <item row="7" column="0" rowspan="2">
+     <item row="8" column="0" rowspan="2">
       <widget class="QLabel" name="label_13">
        <property name="text">
         <string>Gauss</string>
@@ -392,20 +453,6 @@
        </property>
       </widget>
      </item>
-     <item row="6" column="1">
-      <widget class="QComboBox" name="comboBox_l48">
-       <item>
-        <property name="text">
-         <string>4领域</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>8领域</string>
-        </property>
-       </item>
-      </widget>
-     </item>
      <item row="4" column="3">
       <widget class="QPushButton" name="btn_prewitt">
        <property name="text">
@@ -427,58 +474,87 @@
        </item>
       </widget>
      </item>
-     <item row="7" column="3" rowspan="2">
+     <item row="8" column="3" rowspan="2">
       <widget class="QPushButton" name="btn_gauss">
        <property name="text">
         <string>确认</string>
        </property>
       </widget>
      </item>
-     <item row="10" column="2">
-      <widget class="QSpinBox" name="spinBox_2"/>
+     <item row="11" column="2">
+      <widget class="QSpinBox" name="spinBox_high"/>
      </item>
-     <item row="9" column="0" rowspan="2">
+     <item row="10" column="0" rowspan="2">
       <widget class="QLabel" name="label_14">
        <property name="text">
         <string>canny</string>
        </property>
       </widget>
      </item>
-     <item row="9" column="3" rowspan="2">
+     <item row="10" column="3" rowspan="2">
       <widget class="QPushButton" name="btn_canny">
        <property name="text">
         <string>确认</string>
        </property>
       </widget>
      </item>
-     <item row="9" column="1">
+     <item row="10" column="1">
       <widget class="QLabel" name="label_19">
        <property name="text">
         <string>low</string>
        </property>
       </widget>
      </item>
-     <item row="10" column="1">
+     <item row="11" column="1">
       <widget class="QLabel" name="label_20">
        <property name="text">
         <string>high</string>
        </property>
       </widget>
      </item>
+     <item row="7" column="1" colspan="2">
+      <widget class="QComboBox" name="comboBox_l">
+       <item>
+        <property name="text">
+         <string>不叠加</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>叠加</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="6" column="0" rowspan="2">
+      <widget class="QLabel" name="label_12">
+       <property name="text">
+        <string>Laplace</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="1" colspan="2">
+      <widget class="QComboBox" name="comboBox_l48">
+       <item>
+        <property name="text">
+         <string>4领域</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>8领域</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="6" column="3" rowspan="2">
+      <widget class="QPushButton" name="btn_laplace">
+       <property name="text">
+        <string>确认</string>
+       </property>
+      </widget>
+     </item>
     </layout>
-   </item>
-   <item>
-    <spacer name="verticalSpacer">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
    </item>
   </layout>
  </widget>

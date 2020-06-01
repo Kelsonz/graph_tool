@@ -4,7 +4,10 @@
 from PyQt5.QtGui import QPixmap
 from basic import exp
 from hence import ImageFilter
+from grey import grey
+from color import color
 import os
+from PIL import Image
 
 
 class function:
@@ -15,6 +18,16 @@ class function:
     def rotate(filename: str, degree: float):
         img = exp(filename)
         img.rotate(degree)
+        fname = img.save()
+        pix = QPixmap(fname)
+        os.remove(fname)
+        return pix
+        pass
+
+    @staticmethod
+    def move(filename: str, X, Y):
+        img = exp(filename)
+        img.move(X, Y)
         fname = img.save()
         pix = QPixmap(fname)
         os.remove(fname)
@@ -62,4 +75,64 @@ class function:
         return pix
         pass
 
-    pass
+    @staticmethod
+    def robert(filename: str, hence: bool):
+        img = ImageFilter(filename)
+        fname = img.robert(hence)
+        pix = QPixmap(fname)
+        os.remove(fname)
+        return pix
+
+    @staticmethod
+    def prewitt(filename: str, hence: bool):
+        img = ImageFilter(filename)
+        fname = img.prewitt(hence)
+        pix = QPixmap(fname)
+        os.remove(fname)
+        return pix
+
+    @staticmethod
+    def sobel(filename: str, hence: bool):
+        img = ImageFilter(filename)
+        fname = img.sobel(hence)
+        pix = QPixmap(fname)
+        os.remove(fname)
+        return pix
+
+    @staticmethod
+    def laplace(filename: str, area: int, hence: bool):
+        img = ImageFilter(filename)
+        fname = img.laplacian(area, hence)
+        pix = QPixmap(fname)
+        os.remove(fname)
+        return pix
+
+    @staticmethod
+    def gauss(filename: str, sigma: float, size: int):
+        img = ImageFilter(filename)
+        _, fname = img.gauss(sigma, size)
+        pix = QPixmap(fname)
+        os.remove(fname)
+        return pix
+
+    @staticmethod
+    def canny(filename: str, low: int, high: int):
+        img = ImageFilter(filename)
+        fname = img.canny(low=low, high=high)
+        pix = QPixmap(fname)
+        os.remove(fname)
+        return pix
+
+    @staticmethod
+    def his(filename: str):
+        im = Image.open(filename)
+        if im.mode == 'L':
+            im = grey(filename)
+
+        else:
+            im = color(filename)
+        im.handle()
+        fname = im.print_change()
+        pix = QPixmap(fname)
+        os.remove(fname)
+        return pix

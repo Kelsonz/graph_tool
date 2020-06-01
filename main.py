@@ -35,6 +35,29 @@ class main(QtWidgets.QMainWindow, Ui_MainWindow):
         self._slot_clear()
         pass
 
+    def _slot_clear(self):
+        self.historyWidget.clear()
+        self.toolWidget.doubleSpinBox_rotate.setValue(0)
+        self.toolWidget.spinBox_h.setValue(0)
+        self.toolWidget.spinBox_w.setValue(0)
+        self.toolWidget.doubleSpinBox_rate.setValue(1)
+        self.toolWidget.comboBox_avg.setCurrentIndex(0)
+        self.toolWidget.comboBox_mid.setCurrentIndex(0)
+        self.toolWidget.comboBox_robert.setCurrentIndex(0)
+        self.toolWidget.comboBox_prewitt.setCurrentIndex(0)
+        self.toolWidget.comboBox_sobel.setCurrentIndex(0)
+        self.toolWidget.comboBox_l.setCurrentIndex(0)
+        self.toolWidget.comboBox_l48.setCurrentIndex(0)
+        self.toolWidget.comboBox_gauss_size.setCurrentIndex(0)
+        self.toolWidget.doubleSpinBox_gauss_sigma.setValue(1.4)
+        self.toolWidget.spinBox_high.setValue(100)
+        self.toolWidget.spinBox_low.setValue(50)
+        self.toolWidget.spinBox_up.setValue(0)
+        self.toolWidget.spinBox_down.setValue(0)
+        self.toolWidget.spinBox_left.setValue(0)
+        self.toolWidget.spinBox_right.setValue(0)
+        pass
+
     def _signal_call(self):
         self.historyWidget.Signal_scene.connect(self._slot_img)
         self.Signal_opt.connect(self.historyWidget.slot_opt)
@@ -44,15 +67,82 @@ class main(QtWidgets.QMainWindow, Ui_MainWindow):
         self.toolWidget.Signal_roatate.connect(self._slot_rotate)
         self.toolWidget.Signal_zoom.connect(self._slot_zoom)
         self.toolWidget.Signal_resize_rate.connect(self._slot_zoom)
+        self.toolWidget.Signal_move.connect(self._slot_move)
+        # 平滑
         self.toolWidget.Signal_mid.connect(self._slot_mid)
         self.toolWidget.Signal_avg.connect(self._slot_avg)
+        # 增强
+        self.toolWidget.Signal_his.connect(self._slot_his)
+        self.toolWidget.Signal_robert.connect(self._slot_robert)
+        self.toolWidget.Signal_prewitt.connect(self._slot_prewitt)
+        self.toolWidget.Signal_sobel.connect(self._slot_sobel)
+        self.toolWidget.Signal_gauss.connect(self._slot_gauss)
+        self.toolWidget.Signal_laplace.connect(self._slot_laplace)
+        self.toolWidget.Signal_canny.connect(self._slot_canny)
 
-    def _slot_clear(self):
-        self.historyWidget.clear()
-        self.toolWidget.doubleSpinBox_rotate.setValue(0)
-        self.toolWidget.spinBox_h.setValue(0)
-        self.toolWidget.spinBox_w.setValue(0)
-        self.toolWidget.doubleSpinBox_rate.setValue(1)
+    def _slot_canny(self, low: int, high: int):
+        if self.is_exist():
+            self.pix = function.canny(low=low, high=high)
+            msg = 'low:%d high:%d' % (low, high)
+            self.Signal_opt.emit(self.filename, opt.canny, self.pix, msg)
+            self._show_img(self.pix)
+        pass
+
+    def _slot_laplace(self, size: int, hence: bool):
+        if self.is_exist():
+            self.pix = function.laplace(self.filename, size, hence)
+            if hence:
+                hence = '叠加'
+            else:
+                hence = '不叠加'
+            if size == 4:
+                size = '4领域'
+            elif size == 8:
+                size = '8领域'
+            msg = '%s %s' % (size, hence)
+            self.Signal_opt.emit(self.filename, opt.laplace, self.pix, msg)
+            self._show_img(self.pix)
+        pass
+
+    def _slot_gauss(self, sigma: float, size: int):
+        if self.is_exist():
+            self.pix = function.gauss(self.filename, sigma, size)
+            msg = 'sigma:%f size:%d' % (sigma, size)
+            self.Signal_opt.emit(self.filename, opt.gauss, self.pix, msg)
+            self._show_img(self.pix)
+        pass
+
+    def _slot_robert(self, hence: bool):
+        if self.is_exist():
+            self.pix = function.robert(self.filename, hence)
+            if hence:
+                msg = '叠加'
+            else:
+                msg = '不叠加'
+            self.Signal_opt.emit(self.filename, opt.robert, self.pix, msg)
+            self._show_img(self.pix)
+        pass
+
+    def _slot_prewitt(self, hence: bool):
+        if self.is_exist():
+            self.pix = function.prewitt(self.filename, hence)
+            if hence:
+                msg = '叠加'
+            else:
+                msg = '不叠加'
+            self.Signal_opt.emit(self.filename, opt.prewitt, self.pix, msg)
+            self._show_img(self.pix)
+        pass
+
+    def _slot_sobel(self, hence: bool):
+        if self.is_exist():
+            self.pix = function.sobel(self.filename, hence)
+            if hence:
+                msg = '叠加'
+            else:
+                msg = '不叠加'
+            self.Signal_opt.emit(self.filename, opt.sobel, self.pix, msg)
+            self._show_img(self.pix)
         pass
 
     def _slot_avg(self, size: int):
@@ -68,6 +158,13 @@ class main(QtWidgets.QMainWindow, Ui_MainWindow):
             size = str(size) + '*' + str(size)
             self.Signal_opt.emit(self.filename, opt.mid, self.pix, size)
             self._show_img(self.pix)
+
+    def _slot_his(self):
+        if self.is_exist():
+            self.pix = function.his(self.filename)
+            self.Signal_opt.emit(self.filename, opt.his, self.pix, '')
+            self._show_img(self.pix)
+        pass
 
     def _slot_rotate(self, degree: float):
         if self.is_exist():
@@ -98,6 +195,13 @@ class main(QtWidgets.QMainWindow, Ui_MainWindow):
                 self.Signal_opt.emit(self.filename, opt.zoom, self.pix, msg)
             self._show_img(self.pix)
         pass
+
+    def _slot_move(self, X, Y):
+        if self.is_exist():
+            self.pix = function.move(self.filename, X, Y)
+            size = '(%d, %d)' % (X, Y)
+            self.Signal_opt.emit(self.filename, opt.avg, self.pix, size)
+            self._show_img(self.pix)
 
     def _show_img(self, pix):
         # 显示图片
@@ -135,6 +239,13 @@ class opt(Enum):
     zoom = '缩放'
     mid = '中值滤波'
     avg = '均值滤波'
+    his = '直方图均衡化'
+    robert = 'Robert算子'
+    prewitt = 'Prewitt算子'
+    sobel = 'Sobel算子'
+    laplace = 'Laplace算子'
+    gauss = 'Gauss平滑'
+    canny = 'canny算子'
 
 
 if __name__ == "__main__":
